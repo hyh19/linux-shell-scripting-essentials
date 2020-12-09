@@ -1,0 +1,29 @@
+# Filename: bash_completion_example
+# Description: Bash completion for bash_completion_example.sh
+
+_bash_completion_example()
+{
+    # Declaring local variables
+    local cur prev opts
+    # An array variable storing the possible completions
+    COMPREPLY=()
+    # Save current word typed on command line in  cur variable
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    # Saving previous word typed on command line in prev variable
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    # Save all options provided by application in variable opts
+    opts="-h -v -p --help --verbose --print"
+
+    # Checking "${cur} == -*" means that perform completion only if current
+    # word starts with a dash (-), which suggest that user is trying to complete an option.
+    # Variable COMPREPLY contains the match of the current word "${cur}" against the list
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        return 0
+    fi
+}
+
+# Register _bash_completion_example to provide completion
+# on running script bash_completion_example.sh
+complete -F _bash_completion_example ./bash_completion_example.sh
+

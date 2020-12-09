@@ -1,0 +1,31 @@
+# custom_bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User added settings
+# Adding aliases
+alias rm='rm -i'  # Prompt before every removal
+alias cp='cp -i'  # Prompts before overwrie
+alias df='df -h'  # Prints size in human readable format
+alias ll='ls -l'  # Longlisting of file
+
+# Exporting environment variables
+# Setting and exporting LD_LIBRARY_PATH variable
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/libs
+# Setting number of commands saved in history file to 10000
+export HISTFILESIZE=10000
+
+# Defining functions
+# Function to calculate size of current diretcory
+function current_directory_size()
+{
+  echo -n "Current directory is $PWD with total used space "
+  du -chs $PWD 2> /dev/null | grep total | cut -f1
+}
+
